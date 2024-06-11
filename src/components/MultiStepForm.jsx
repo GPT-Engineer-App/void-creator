@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
-import { Box, Button, Input, FormControl, FormLabel, VStack, Heading } from '@chakra-ui/react';
+import { Box, Button, Input, FormControl, FormLabel, VStack, Heading, Text, Flex, IconButton, useRadio, useRadioGroup, HStack } from '@chakra-ui/react';
+import { FaRegEdit, FaCheckCircle } from 'react-icons/fa';
 import { loadStripe } from '@stripe/stripe-js';
 import { Elements, CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 
 const stripePromise = loadStripe('your-publishable-key-here');
 
 const Step1 = ({ nextStep, handleChange, values }) => (
-  <Box>
-    <Heading as="h3" size="lg" mb={4}>Customer Details</Heading>
+  <Box p={6} boxShadow="lg" borderRadius="md" bg="white">
+    <Heading as="h3" size="lg" mb={4}>Confirm your payment method</Heading>
+    <Text mb={4}>Choose, add or update your payment method</Text>
     <FormControl id="name" mb={4}>
       <FormLabel>Name</FormLabel>
       <Input type="text" value={values.name} onChange={handleChange('name')} />
@@ -16,19 +18,19 @@ const Step1 = ({ nextStep, handleChange, values }) => (
       <FormLabel>Email</FormLabel>
       <Input type="email" value={values.email} onChange={handleChange('email')} />
     </FormControl>
-    <Button onClick={nextStep}>Next</Button>
+    <Button colorScheme="purple" onClick={nextStep}>Next</Button>
   </Box>
 );
 
 const Step2 = ({ nextStep, prevStep, handleChange, values }) => (
-  <Box>
+  <Box p={6} boxShadow="lg" borderRadius="md" bg="white">
     <Heading as="h3" size="lg" mb={4}>Colleagues' Emails</Heading>
     <FormControl id="colleagues" mb={4}>
       <FormLabel>Colleagues' Emails</FormLabel>
       <Input type="text" value={values.colleagues} onChange={handleChange('colleagues')} />
     </FormControl>
     <Button onClick={prevStep} mr={4}>Back</Button>
-    <Button onClick={nextStep}>Next</Button>
+    <Button colorScheme="purple" onClick={nextStep}>Next</Button>
   </Box>
 );
 
@@ -58,7 +60,7 @@ const Step3 = ({ prevStep }) => {
   };
 
   return (
-    <Box>
+    <Box p={6} boxShadow="lg" borderRadius="md" bg="white">
       <Heading as="h3" size="lg" mb={4}>Payment</Heading>
       <form onSubmit={handleSubmit}>
         <FormControl id="card" mb={4}>
@@ -66,7 +68,7 @@ const Step3 = ({ prevStep }) => {
           <CardElement />
         </FormControl>
         <Button onClick={prevStep} mr={4}>Back</Button>
-        <Button type="submit" disabled={!stripe}>Pay</Button>
+        <Button type="submit" colorScheme="purple" disabled={!stripe}>Pay</Button>
       </form>
     </Box>
   );
